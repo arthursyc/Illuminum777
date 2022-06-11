@@ -27,7 +27,7 @@ class gameEngine:
         await diffmsg.add_reaction("\U0001F1ED")
 
         def check(reaction, user):
-            return reaction.emoji in ["\U0001F1EA", "\U0001F1F2", "\U0001F1ED"] and user == self.player
+            return reaction.emoji in ["\U0001F1EA", "\U0001F1F2", "\U0001F1ED"] and user == self.player and reaction.message == diffmsg
         try:
             reaction, user = await client.wait_for("reaction_add", timeout=6000.0, check=check)
         except TimeoutError:
