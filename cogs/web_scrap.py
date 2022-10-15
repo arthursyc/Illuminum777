@@ -17,6 +17,10 @@ class Web_Scraping(commands.Cog):
     async def info(self, ctx, *, text):
         print(f"\nSearching Wikipedia for {text}\n")
         response = requests.get("https://en.wikipedia.org/w/rest.php/v1/search/page", headers=headers, params={'q': text, 'limit': 10})
+        if response.status_code != 200:
+            print("\nSearch unsuccessful\n")
+            await ctx.send(embed=Embed(title="Fetch unsuccessful"))
+            return
         response = json.loads(response.text)
         index = 0
         while index < len(response['pages']):
